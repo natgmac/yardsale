@@ -1,13 +1,13 @@
 {
   "files": {
     "main.css": "/yardsale/static/css/main.41507da7.css",
-    "main.js": "/yardsale/static/js/main.a6448ade.js",
+    "main.js": "/yardsale/static/js/main.3690c37c.js",
     "index.html": "/yardsale/index.html",
     "main.41507da7.css.map": "/yardsale/static/css/main.41507da7.css.map",
-    "main.a6448ade.js.map": "/yardsale/static/js/main.a6448ade.js.map"
+    "main.3690c37c.js.map": "/yardsale/static/js/main.3690c37c.js.map"
   },
   "entrypoints": [
     "static/css/main.41507da7.css",
-    "static/js/main.a6448ade.js"
+    "static/js/main.3690c37c.js"
   ]
 }
