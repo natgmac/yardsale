@@ -19,7 +19,7 @@ import { NavLink } from 'react-router-dom';
 
 function Header() {
   const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down('sm')); // true if width <= 600px
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm')); // true for width <= 600px
   const [drawerOpen, setDrawerOpen] = React.useState(false);
 
   const navLinks = [
@@ -68,12 +68,11 @@ function Header() {
           <>
             <IconButton
               edge="end"
-              color="inherit"
               onClick={toggleDrawer}
-              // Explicitly ensure the button is visible on extra-small screens.
               sx={{ display: { xs: 'block', sm: 'block' } }}
             >
-              <MenuIcon />
+              {/* Force the icon to have a dark color */}
+              <MenuIcon sx={{ color: '#444' }} />
             </IconButton>
             <Drawer anchor="right" open={drawerOpen} onClose={toggleDrawer}>
               <Box
@@ -84,12 +83,7 @@ function Header() {
               >
                 <List>
                   {navLinks.map((item, index) => (
-                    <ListItem
-                      button
-                      key={index}
-                      component={NavLink}
-                      to={item.path}
-                    >
+                    <ListItem button key={index} component={NavLink} to={item.path}>
                       <ListItemText primary={item.label} />
                     </ListItem>
                   ))}
