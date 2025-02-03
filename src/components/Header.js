@@ -1,81 +1,98 @@
 // src/components/Header.js
-import React, { useState, useEffect } from 'react';
-import AppBar from '@mui/material/AppBar';
-import Box from '@mui/material/Box';
-import Toolbar from '@mui/material/Toolbar';
-import Typography from '@mui/material/Typography';
-import Button from '@mui/material/Button';
+import React from 'react';
+import {
+  AppBar,
+  Toolbar,
+  Typography,
+  Button,
+  IconButton,
+  Drawer,
+  List,
+  ListItem,
+  ListItemText,
+  Box,
+  useTheme,
+  useMediaQuery,
+} from '@mui/material';
+import MenuIcon from '@mui/icons-material/Menu';
 import { NavLink } from 'react-router-dom';
 
 function Header() {
-  // State to track whether the header should be visible
-  const [showHeader, setShowHeader] = useState(true);
-  // Track the previous scroll position
-  const [prevScrollPos, setPrevScrollPos] = useState(window.pageYOffset);
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+  const [drawerOpen, setDrawerOpen] = React.useState(false);
 
-  const handleScroll = () => {
-    const currentScrollPos = window.pageYOffset;
-    // If scrolling up or near the top, show header; otherwise, hide it.
-    const shouldShow = prevScrollPos > currentScrollPos || currentScrollPos < 50;
-    setShowHeader(shouldShow);
-    setPrevScrollPos(currentScrollPos);
+  // Include all desired navigation links here.
+  const navLinks = [
+    { label: 'Home', path: '/' },
+    { label: 'About', path: '/about' },
+    { label: 'Map', path: '/map-prototype' },
+    { label: 'Lead Form', path: '/lead-form' },
+    { label: 'FAQ', path: '/faq' },
+    { label: 'Legal Structures', path: '/legal-structures' },
+    { label: 'Contact', path: '/contact' },
+  ];
+
+  const toggleDrawer = () => {
+    setDrawerOpen(!drawerOpen);
   };
 
-  useEffect(() => {
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, [prevScrollPos]);
-
   return (
-    <Box
+    <AppBar
+      position="fixed"
       sx={{
-        position: 'fixed',
-        width: '100%',
-        top: 0,
-        zIndex: 1100,
-        transition: 'transform 0.3s ease',
-        transform: showHeader ? 'translateY(0)' : 'translateY(-100%)',
+        background: 'rgba(255, 255, 255, 0.9)',
+        backdropFilter: 'blur(5px)',
+        boxShadow: 1,
       }}
     >
-      <AppBar
-        position="static"
-        color="transparent"
-        elevation={1}
-        sx={{
-          background: 'rgba(255, 255, 255, 0.9)', // semi-transparent white background
-          backdropFilter: 'blur(5px)', // adds a modern blur effect behind the header
-        }}
-      >
-        <Toolbar>
-          <NavLink
-            to="/"
-            style={{ textDecoration: 'none', display: 'flex', alignItems: 'center' }}
-          >
-            {/* Replace with your logo image path if needed */}
+      <Toolbar>
+        <Box sx={{ flexGrow: 1, display: 'flex', alignItems: 'center' }}>
+          <NavLink to="/" style={{ textDecoration: 'none', display: 'flex', alignItems: 'center' }}>
             <img
               src="/logo192.png"
               alt="Yardsale Logo"
-              style={{ height: '50px', marginRight: '20px' }}
+              style={{ height: '50px', marginRight: '10px' }}
             />
           </NavLink>
-          <Typography variant="h6" sx={{ flexGrow: 1, color: '#444' }}>
-            Yardsale
-          </Typography>
-          <Button color="inherit" component={NavLink} to="/" sx={{ color: '#444' }}>
-            Home
-          </Button>
-          <Button color="inherit" component={NavLink} to="/about" sx={{ color: '#444' }}>
-            About
-          </Button>
-          <Button color="inherit" component={NavLink} to="/faq" sx={{ color: '#444' }}>
-            FAQ
-          </Button>
-          <Button color="inherit" component={NavLink} to="/contact" sx={{ color: '#444' }}>
-            Contact
-          </Button>
-        </Toolbar>
-      </AppBar>
-    </Box>
+          {!isMobile && (
+            <Typography variant="h6" component="div" sx={{ color: '#444' }}>
+              Yardsale
+            </Typography>
+          )}
+        </Box>
+        {isMobile ? (
+          <>
+            <IconButton edge="end" color="inherit" onClick={toggleDrawer}>
+              <MenuIcon />
+            </IconButton>
+            <Drawer anchor="right" open={drawerOpen} onClose={toggleDrawer}>
+              <Box sx={{ width: 250 }} role="presentation" onClick={toggleDrawer} onKeyDown={toggleDrawer}>
+                <List>
+                  {navLinks.map((item, index) => (
+                    <ListItem button key={index} component={NavLink} to={item.path}>
+                      <ListItemText primary={item.label} />
+                    </ListItem>
+                  ))}
+                </List>
+              </Box>
+            </Drawer>
+          </>
+        ) : (
+          navLinks.map((item, index) => (
+            <Button
+              key={index}
+              color="inherit"
+              component={NavLink}
+              to={item.path}
+              sx={{ color: '#444', ml: 2 }}
+            >
+              {item.label}
+            </Button>
+          ))
+        )}
+      </Toolbar>
+    </AppBar>
   );
 }
 

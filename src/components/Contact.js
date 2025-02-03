@@ -1,6 +1,7 @@
 // src/components/Contact.js
 import React, { useState } from 'react';
 import { Container, Typography, TextField, Button, Box } from '@mui/material';
+import { motion } from 'framer-motion';
 
 function Contact() {
   const [formData, setFormData] = useState({ name: '', email: '', message: '' });
@@ -17,13 +18,20 @@ function Contact() {
   };
 
   return (
-    <Container maxWidth="sm" sx={{ mt: 4 }}>
-      <Typography variant="h4" component="h1" gutterBottom>
-        Contact Us
-      </Typography>
-      <Typography variant="body1" gutterBottom>
-        If you have any questions or would like to learn more about Yardsale, please get in touch!
-      </Typography>
+    <Container maxWidth="sm" sx={{ mt: 4, mb: 4 }}>
+      <motion.div
+        initial={{ opacity: 0, scale: 0.9 }}
+        whileInView={{ opacity: 1, scale: 1 }}
+        viewport={{ once: true }}
+        transition={{ duration: 1 }}
+      >
+        <Typography variant="h4" component="h1" gutterBottom>
+          Contact Us
+        </Typography>
+        <Typography variant="body1" gutterBottom>
+          For more information about Yardsale, inquiries about partnership opportunities, or assistance with our platform, please get in touch. We’re here to help and look forward to connecting with you.
+        </Typography>
+      </motion.div>
       <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 2 }}>
         <TextField
           fullWidth
