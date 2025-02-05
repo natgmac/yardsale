@@ -40,12 +40,12 @@ function Header() {
     <AppBar
       position="fixed"
       sx={{
-        background: 'rgba(255, 255, 255, 0.9)',
+        background: 'rgba(255, 255, 255, 0.95)', // Slightly more opaque
         backdropFilter: 'blur(5px)',
         boxShadow: 1,
       }}
     >
-      <Toolbar>
+      <Toolbar sx={{ minHeight: { xs: '56px', sm: '64px' } }}>
         <Box sx={{ flexGrow: 1, display: 'flex', alignItems: 'center' }}>
           <NavLink
             to="/"
@@ -54,10 +54,13 @@ function Header() {
             <img
               src="/logo192.png"
               alt="Yardsale Logo"
-              style={{ height: '50px', marginRight: '10px' }}
+              style={{
+                height: isMobile ? '40px' : '50px',
+                marginRight: '10px',
+                transition: 'height 0.2s ease',
+              }}
             />
           </NavLink>
-          {/* Show title on larger screens */}
           {!isMobile && (
             <Typography variant="h6" component="div" sx={{ color: '#444' }}>
               Yardsale
@@ -69,22 +72,60 @@ function Header() {
             <IconButton
               edge="end"
               onClick={toggleDrawer}
-              sx={{ display: { xs: 'block', sm: 'block' } }}
+              sx={{ 
+                display: { xs: 'block', sm: 'block' },
+                padding: '12px',
+              }}
+              aria-label="menu"
             >
-              {/* Force the icon to have a dark color */}
               <MenuIcon sx={{ color: '#444' }} />
             </IconButton>
-            <Drawer anchor="right" open={drawerOpen} onClose={toggleDrawer}>
+            <Drawer 
+              anchor="right" 
+              open={drawerOpen} 
+              onClose={toggleDrawer}
+              PaperProps={{
+                sx: {
+                  width: '80%', // Percentage-based width
+                  maxWidth: '300px',
+                  backgroundColor: 'rgba(255, 255, 255, 0.98)',
+                }
+              }}
+            >
               <Box
-                sx={{ width: 250 }}
+                sx={{
+                  width: '100%',
+                  paddingTop: '20px',
+                }}
                 role="presentation"
                 onClick={toggleDrawer}
                 onKeyDown={toggleDrawer}
               >
                 <List>
                   {navLinks.map((item, index) => (
-                    <ListItem button key={index} component={NavLink} to={item.path}>
-                      <ListItemText primary={item.label} />
+                    <ListItem 
+                      button 
+                      key={index} 
+                      component={NavLink} 
+                      to={item.path}
+                      sx={{
+                        padding: '12px 24px',
+                        '&.active': {
+                          backgroundColor: 'rgba(0, 0, 0, 0.08)',
+                        },
+                        '&:hover': {
+                          backgroundColor: 'rgba(0, 0, 0, 0.04)',
+                        }
+                      }}
+                    >
+                      <ListItemText 
+                        primary={item.label}
+                        sx={{
+                          '& .MuiTypography-root': {
+                            fontSize: '1.1rem',
+                          }
+                        }}
+                      />
                     </ListItem>
                   ))}
                 </List>
@@ -98,7 +139,16 @@ function Header() {
               color="inherit"
               component={NavLink}
               to={item.path}
-              sx={{ color: '#444', ml: 2 }}
+              sx={{
+                color: '#444',
+                ml: 2,
+                '&.active': {
+                  backgroundColor: 'rgba(0, 0, 0, 0.08)',
+                },
+                '&:hover': {
+                  backgroundColor: 'rgba(0, 0, 0, 0.04)',
+                }
+              }}
             >
               {item.label}
             </Button>
