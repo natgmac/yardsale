@@ -3,6 +3,7 @@ import React from 'react';
 import { Container, Typography, Button, Box } from '@mui/material';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
+import { Logo } from './Logo.tsx';
 
 function Home() {
   return (
@@ -21,6 +22,7 @@ function Home() {
         }}
       >
         <Container maxWidth="md">
+          <Logo height="120px" />
           <motion.div
             initial={{ opacity: 0, y: -20 }}
             whileInView={{ opacity: 1, y: 0 }}

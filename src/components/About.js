@@ -1,10 +1,14 @@
 // src/components/About.js
 import React from 'react';
 import { Container, Typography, Box, List, ListItem } from '@mui/material';
+import { Logo } from './Logo.tsx';
 
 function About() {
   return (
     <Container maxWidth="md" sx={{ mt: 4, mb: 4 }}>
+      <Box sx={{ display: 'flex', justifyContent: 'center', mb: 4 }}>
+        <Logo height="100px" />
+      </Box>
       {/* Introduction Section */}
       <Box sx={{ mb: 4 }}>
         <Typography variant="h4" component="h1" gutterBottom>
@@ -74,7 +78,10 @@ function About() {
             <strong>Eric Larsson:</strong> Planner and attorney – Expert in land use planning and mapping.
           </ListItem>
           <ListItem>
-            Additional experts in GIS, entrepreneurship, and technology development.
+            <strong>Nat MacDonald:</strong> Specializing in automated site planning and development feasibility analysis.
+          </ListItem>
+          <ListItem>
+            Additional experts in GIS and entrepreneurship.
           </ListItem>
         </List>
       </Box>

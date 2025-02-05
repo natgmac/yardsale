@@ -16,6 +16,7 @@ import {
 } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import { NavLink } from 'react-router-dom';
+import { Logo } from './Logo.tsx';
 
 function Header() {
   const theme = useTheme();
@@ -51,18 +52,10 @@ function Header() {
             to="/"
             style={{ textDecoration: 'none', display: 'flex', alignItems: 'center' }}
           >
-            <img
-              src="/logo192.png"
-              alt="Yardsale Logo"
-              style={{
-                height: isMobile ? '40px' : '50px',
-                marginRight: '10px',
-                transition: 'height 0.2s ease',
-              }}
-            />
+            <Logo height={isMobile ? '40px' : '50px'} />
           </NavLink>
           {!isMobile && (
-            <Typography variant="h6" component="div" sx={{ color: '#444' }}>
+            <Typography variant="h6" component="div" sx={{ color: '#444', ml: 2 }}>
               Yardsale
             </Typography>
           )}

@@ -2,10 +2,14 @@
 import React from 'react';
 import { Container, Typography, Box, List, ListItem } from '@mui/material';
 import { motion } from 'framer-motion';
+import { Logo } from './Logo.tsx';
 
 function LegalStructures() {
   return (
     <Container maxWidth="md" sx={{ mt: 4, mb: 4 }}>
+      <Box sx={{ display: 'flex', justifyContent: 'center', mb: 4 }}>
+        <Logo height="80px" />
+      </Box>
       <motion.div 
         initial={{ opacity: 0, y: 20 }} 
         whileInView={{ opacity: 1, y: 0 }} 
